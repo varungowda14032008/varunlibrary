@@ -1,0 +1,6 @@
+{
+  "name": "Smart Campus Library Desk - RV University",
+  "description": "Autonomous smart campus library circulation desk with barcode & OCR scanning, student credentials, FIFO waitlists, and institutional No-Dues audit.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
