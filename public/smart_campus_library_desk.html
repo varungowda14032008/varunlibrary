@@ -163,8 +163,8 @@
         <button onclick="handleLogout()" class="ml-2 text-slate-400 hover:text-rose-400 text-xs cursor-pointer" title="Sign Out">✕</button>
       </div>
 
-      <!-- Faculty Terminal Trigger (Password Protected: 1403) -->
-      <button onclick="openFacultyModal()" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#203647] to-[#162734] hover:from-[#2a455a] hover:to-[#1e3447] text-[#cda659] border border-[#cda659]/50 shadow-md font-medium text-xs transition cursor-pointer">
+      <!-- Faculty Terminal Trigger (Password Protected: 1403, visible only when no student is logged in) -->
+      <button id="facultyTerminalHeaderBtn" onclick="openFacultyModal()" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#203647] to-[#162734] hover:from-[#2a455a] hover:to-[#1e3447] text-[#cda659] border border-[#cda659]/50 shadow-md font-medium text-xs transition cursor-pointer">
         <span class="text-amber-400">🛡️</span>
         <span class="font-semibold">Faculty / Server Terminal</span>
       </button>
@@ -395,10 +395,15 @@
             </button>
           </div>
 
-          <!-- Optical Scanner Trigger (Faculty Terminal Only) -->
-          <button onclick="openOpticalScannerModal()" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow cursor-pointer mb-1">
-            <span>📷</span> Optical Barcode Scanner
-          </button>
+          <!-- Faculty Toolbar Actions (Faculty Terminal Exclusive) -->
+          <div class="flex items-center gap-2 mb-1">
+            <button onclick="downloadCurrentHTML()" class="px-3 py-1.5 rounded-xl bg-[#cda659]/20 hover:bg-[#cda659]/30 border border-[#cda659]/40 text-[#cda659] text-xs font-bold transition flex items-center gap-1.5 shadow cursor-pointer" title="Download Standalone HTML File (Faculty Authority Only)">
+              <span>📥</span> Download .HTML
+            </button>
+            <button onclick="openOpticalScannerModal()" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow cursor-pointer">
+              <span>📷</span> Optical Barcode Scanner
+            </button>
+          </div>
         </div>
 
         <!-- Terminal Body (Scrollable) -->
@@ -930,7 +935,8 @@
         authSec.classList.add('hidden');
         portalSec.classList.remove('hidden');
         badge.classList.remove('hidden');
-        badge.classList.add('flex');
+        const facBtn = document.getElementById('facultyTerminalHeaderBtn');
+        if (facBtn) facBtn.classList.add('hidden');
         document.getElementById('headerUserName').textContent = currentStudent.name;
         document.getElementById('headerUserUSN').textContent = currentStudent.usn;
         document.getElementById('portalStudentName').textContent = currentStudent.name;
@@ -940,6 +946,8 @@
         portalSec.classList.add('hidden');
         badge.classList.add('hidden');
         badge.classList.remove('flex');
+        const facBtn = document.getElementById('facultyTerminalHeaderBtn');
+        if (facBtn) facBtn.classList.remove('hidden');
       }
     }
 
@@ -1548,6 +1556,21 @@
 
     function closeCertificateModal() {
       document.getElementById('certificateModal').classList.add('hidden');
+    }
+
+    // 1-Click Standalone HTML File Exporter
+    function downloadCurrentHTML() {
+      const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'smart_campus_library_desk.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Downloaded smart_campus_library_desk.html to your device!', 'success');
     }
   </script>
 </body>

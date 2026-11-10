@@ -68,26 +68,25 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Active User & Faculty Terminal Trigger */}
       <div className="flex items-center gap-2 md:gap-3">
-        {currentStudent && (
-          <div className="text-xs bg-[#111f2a] border border-[#263e50] px-3 py-1.5 rounded-xl font-mono flex items-center gap-1.5 shadow-sm">
-            <span className="text-slate-400">USN:</span> 
-            <span className="text-emerald-400 font-bold">{currentStudent.usn}</span>
-          </div>
-        )}
-
-        <button
-          onClick={onOpenServerTerminal}
-          className="px-3.5 py-1.5 rounded-xl bg-[#cda659] hover:bg-[#b58f44] text-slate-950 font-bold text-xs transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5 cursor-pointer"
-        >
-          <span>⚡</span> <span className="hidden sm:inline">Faculty / Server</span> Terminal
-        </button>
-
-        {currentStudent && (
+        {currentStudent ? (
+          <>
+            <div className="text-xs bg-[#111f2a] border border-[#263e50] px-3 py-1.5 rounded-xl font-mono flex items-center gap-1.5 shadow-sm">
+              <span className="text-slate-400">USN:</span> 
+              <span className="text-emerald-400 font-bold">{currentStudent.usn}</span>
+            </div>
+            <button
+              onClick={onLogout}
+              className="px-3 py-1.5 rounded-xl bg-rose-950/60 hover:bg-rose-900 border border-rose-800/60 text-xs font-semibold text-rose-300 transition cursor-pointer"
+            >
+              Exit Desk
+            </button>
+          </>
+        ) : (
           <button
-            onClick={onLogout}
-            className="px-3 py-1.5 rounded-xl bg-rose-950/60 hover:bg-rose-900 border border-rose-800/60 text-xs font-semibold text-rose-300 transition cursor-pointer"
+            onClick={onOpenServerTerminal}
+            className="px-3.5 py-1.5 rounded-xl bg-[#cda659] hover:bg-[#b58f44] text-slate-950 font-bold text-xs transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5 cursor-pointer"
           >
-            Exit Desk
+            <span>⚡</span> <span className="hidden sm:inline">Faculty / Server</span> Terminal
           </button>
         )}
       </div>

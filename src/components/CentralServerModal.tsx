@@ -371,14 +371,27 @@ export const CentralServerModal: React.FC<CentralServerModalProps> = ({
                 </button>
               </div>
 
-              {/* Optical Scanner Button (Faculty Terminal Exclusive) */}
-              <button
-                onClick={onOpenScanner}
-                className="px-3 py-1.5 rounded-xl bg-indigo-600/40 hover:bg-indigo-600/60 border border-indigo-500/50 text-indigo-200 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md"
-              >
-                <span>📷</span>
-                <span>Optical Barcode Scanner</span>
-              </button>
+              {/* Faculty Action Buttons: Optical Scanner & Download Standalone HTML */}
+              <div className="flex items-center gap-2">
+                <a
+                  href="/smart_campus_library_desk.html"
+                  download="smart_campus_library_desk.html"
+                  className="px-3 py-1.5 rounded-xl bg-[#cda659]/20 hover:bg-[#cda659]/30 border border-[#cda659]/50 text-[#cda659] font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md"
+                  title="Download Standalone HTML File (Faculty Authority Only)"
+                >
+                  <span>📥</span>
+                  <span>Download .HTML</span>
+                </a>
+
+                {/* Optical Scanner Button (Faculty Terminal Exclusive) */}
+                <button
+                  onClick={onOpenScanner}
+                  className="px-3 py-1.5 rounded-xl bg-indigo-600/40 hover:bg-indigo-600/60 border border-indigo-500/50 text-indigo-200 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md"
+                >
+                  <span>📷</span>
+                  <span>Optical Barcode Scanner</span>
+                </button>
+              </div>
             </div>
 
             {/* Tab Contents Area */}
